@@ -5,7 +5,7 @@ FROM tomcat:9.0-jdk11-openjdk
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
 # 3. Copiamos tus archivos .jsp a la carpeta principal del servidor
-COPY ./app /usr/local/tomcat/webapps/ROOT/
+COPY ./App /usr/local/tomcat/webapps/ROOT/
 
 # 4. Le decimos a Render qué puerto usar
 EXPOSE 8080
