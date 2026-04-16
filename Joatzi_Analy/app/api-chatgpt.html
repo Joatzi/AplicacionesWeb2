@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API ChatGPT - APIyi</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f0f0f0;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:30px;
+}
+
+h1{color:#333;}
+h3{color:#555;margin-bottom:20px;}
+
+#caja-chat{
+border:1px solid #ccc;
+width:80%;
+height:300px;
+overflow-y:scroll;
+text-align:left;
+padding:10px;
+background:#fff;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+.msg-usuario{color:#0057b8;margin:6px 0;}
+.msg-bot{color:#222;margin:6px 0;}
+.msg-error{color:red;margin:6px 0;font-style:italic;}
+
+#mensajeUsuario{
+width:60%;
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+padding:8px 18px;
+background:#10a37f;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0d8a6a;
+}
+
+.info{
+width:80%;
+background:#e7f3ff;
+padding:10px;
+border-radius:6px;
+margin-bottom:10px;
+font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>API ChatGPT</h1>
+<h3>Chat usando APIyi</h3>
+
+<div class="info">
+Conectado a APIyi - Modelos disponibles
+</div>
+
+<div id="caja-chat">
+<p><em>Inicia la conversación...</em></p>
+</div>
+
+<div style="width:80%;display:flex;gap:10px;">
+
+<select id="modelo">
+
+<option value="gpt-3.5-turbo">GPT 3.5 Turbo</option>
+<option value="gpt-4o-mini">GPT 4o Mini</option>
+<option value="gpt-4">GPT 4</option>
+
+</select>
+
+<input type="text" id="mensajeUsuario" placeholder="Escribe tu mensaje">
+
+<button onclick="enviarMensaje()">Enviar</button>
+
+</div>
+
+<br>
+
+<a href="examenU2.html">⬅ Regresar</a>
+
+<hr>
+
+<p>Desarrollador: Joatzi Lopez</p>
+<p>Materia: Aplicaciones Moviles</p>
+<p>Unidad 2 - Implementación de APIs</p>
+<p>2026</p>
+
+<script>
+
+const historial=[];
+
+// APIyi
+const API_URL="https://api.apiyi.com/v1/chat/completions";
+const API_KEY="sk-16ynyWmWDAelN4d2A75aAaB5C7344f4f83398774C7DdCb2d";
+
+// ENTER para enviar
+document.getElementById("mensajeUsuario").addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+enviarMensaje();
+}
+
+});
+
+async function enviarMensaje(){
+
+const input=document.getElementById("mensajeUsuario");
+const chat=document.getElementById("caja-chat");
+const modelo=document.getElementById("modelo").value;
+
+const texto=input.value.trim();
+
+if(texto==="") return;
+
+if(chat.querySelector("em")){
+chat.innerHTML="";
+}
+
+// mensaje usuario
+chat.innerHTML+=`<p class="msg-usuario"><b>Tú:</b> ${texto}</p>`;
+
+input.value="";
+
+historial.push({
+role:"user",
+content:texto
+});
+
+// indicador escribiendo
+const typing=document.createElement("p");
+typing.id="typing";
+typing.innerHTML="<em>ChatGPT está escribiendo...</em>";
+
+chat.appendChild(typing);
+
+chat.scrollTop=chat.scrollHeight;
+
+try{
+
+const respuesta=await fetch(API_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer "+API_KEY
+},
+body:JSON.stringify({
+model:modelo,
+messages:historial,
+temperature:0.7
+})
+});
+
+const datos=await respuesta.json();
+
+document.getElementById("typing").remove();
+
+if(datos.error){
+
+chat.innerHTML+=`<p class="msg-error">Error: ${datos.error.message}</p>`;
+
+}else{
+
+const mensajeBot=datos.choices[0].message.content;
+
+historial.push({
+role:"assistant",
+content:mensajeBot
+});
+
+chat.innerHTML+=`<p class="msg-bot"><b>ChatGPT:</b> ${mensajeBot}</p>`;
+
+}
+
+}catch(error){
+
+document.getElementById("typing").remove();
+
+chat.innerHTML+=`<p class="msg-error">Error al conectar con la API</p>`;
+
+}
+
+chat.scrollTop=chat.scrollHeight;
+
+}
+
+</script>
+
+</body>
+</html>

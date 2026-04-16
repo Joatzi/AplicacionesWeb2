@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Gemini - Google AI</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f0f0f0;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:30px;
+}
+
+h1{color:#333;}
+h3{color:#555;margin-bottom:20px;}
+
+#caja-chat{
+border:1px solid #ccc;
+width:80%;
+height:300px;
+overflow-y:auto;
+text-align:left;
+padding:10px;
+background:#fff;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+.msg-usuario{color:#0057b8;margin:6px 0;}
+.msg-bot{color:#222;margin:6px 0;}
+.msg-error{color:red;margin:6px 0;font-style:italic;}
+
+#mensajeUsuario{
+width:60%;
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+padding:8px 18px;
+background:#4285F4;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#3367d6;
+}
+
+.info{
+width:80%;
+background:#e8f0fe;
+padding:10px;
+border-radius:6px;
+margin-bottom:10px;
+font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>API Gemini</h1>
+<h3>Chat usando Google Gemini</h3>
+
+<div class="info">
+Modelo usado: Gemini 1.5 Flash
+</div>
+
+<div id="caja-chat">
+<p><em>Inicia la conversación...</em></p>
+</div>
+
+<div style="width:80%;display:flex;gap:10px;">
+<input type="text" id="mensajeUsuario" placeholder="Escribe tu mensaje">
+<button onclick="enviarMensaje()">Enviar</button>
+</div>
+
+<br>
+
+<a href="examenU2.html">⬅ Regresar</a>
+
+<hr>
+
+<p>Desarrollador: Joatzi Lopez</p>
+<p>Materia: Aplicaciones Moviles</p>
+<p>Unidad 2 - Implementación de APIs</p>
+<p>2026</p>
+
+<script>
+// Tu API Key correcta
+const API_KEY = "AIzaSyB0IFL2VPQAi3vMgEQVYryH1vmqywfg8r0";
+
+// Usamos comillas invertidas (backticks) para inyectar la variable API_KEY
+// y cambiamos "v1" a "v1beta" para mejor compatibilidad con los modelos recientes
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+document.getElementById("mensajeUsuario").addEventListener("keydown", function(e) {
+    if(e.key === "Enter") {
+        enviarMensaje();
+    }
+});
+
+async function enviarMensaje() {
+    const input = document.getElementById("mensajeUsuario");
+    const chat = document.getElementById("caja-chat");
+    const texto = input.value.trim();
+
+    if(texto === "") return;
+
+    if(chat.querySelector("em")) {
+        chat.innerHTML = "";
+    }
+
+    chat.innerHTML += `<p class="msg-usuario"><b>Tú:</b> ${texto}</p>`;
+    input.value = "";
+
+    const typing = document.createElement("p");
+    typing.id = "typing";
+    typing.innerHTML = "<em>Gemini está escribiendo...</em>";
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+        const respuesta = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            {text: texto}
+                        ]
+                    }
+                ]
+            })
+        });
+
+        const datos = await respuesta.json();
+        document.getElementById("typing").remove();
+
+        // Manejo de errores de la API (ej. clave inválida, cuota excedida)
+        if(datos.error) {
+            chat.innerHTML += `<p class="msg-error">Error: ${datos.error.message}</p>`;
+            chat.scrollTop = chat.scrollHeight;
+            return;
+        }
+
+        if(!datos.candidates) {
+            chat.innerHTML += `<p class="msg-error">Gemini no devolvió respuesta</p>`;
+            chat.scrollTop = chat.scrollHeight;
+            return;
+        }
+
+        const mensajeBot = datos.candidates[0].content.parts[0].text;
+        
+        // Convertimos los saltos de línea de texto a etiquetas <br> para HTML
+        const mensajeFormateado = mensajeBot.replace(/\n/g, '<br>');
+        
+        chat.innerHTML += `<p class="msg-bot"><b>Gemini:</b> ${mensajeFormateado}</p>`;
+
+    } catch(error) {
+        document.getElementById("typing").remove();
+        chat.innerHTML += `<p class="msg-error">Error al conectar con Gemini</p>`;
+        console.error(error);
+    }
+
+    chat.scrollTop = chat.scrollHeight;
+}
+</script>
+</body>
+</html>
