@@ -1,108 +1,143 @@
-<style>
-    body{
-        text-align: center;
-        font-family: 'Segoe UI', sans-serif;
-        margin: 0;
-        padding: 0;
-
-        /* Fondo degradado */
-        background: linear-gradient(135deg, #0882ed, #d994de);
-        color: white;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universidad Tecnológica de la Costa - Portal</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0882ed, #d994de);
+      color: white;
     }
 
-    header{
-        padding: 25px;
+    header {
+      padding: 25px;
     }
 
-    h1{
-        margin-bottom: 10px;
+    h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    /* Tarjeta */
-    .contenedor{
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 30px;
-        margin: 30px auto;
-        width: 75%;
-        box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
-        animation: aparecer 1s ease;
-    }
-
-    /* Animación de entrada */
-    @keyframes aparecer{
-        from{
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to{
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Bienvenida con animación más suave */
-    .marquesina {
-        animation: flotar 2s infinite alternate ease-in-out;
+    h2.marquesina {
+      font-size: 1.6em;
+      animation: flotar 2s infinite alternate ease-in-out;
     }
 
     @keyframes flotar {
-        from { transform: translateY(-5px); }
-        to { transform: translateY(5px); }
+      from { transform: translateY(-5px); }
+      to { transform: translateY(5px); }
     }
 
-    hr{
-        border: none;
-        height: 1px;
-        background: rgba(255,255,255,0.4);
-        margin: 20px 0;
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, #ffffff, transparent);
+      margin: 20px 0;
     }
 
-    /* Botones */
-    a{
-        display: inline-block;
-        margin: 10px;
-        padding: 12px 25px;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.2);
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        transition: all 0.3s ease;
+    .contenedor {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px auto;
+      width: 75%;
+      box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+      animation: aparecer 1s ease;
+      transition: transform 0.4s ease;
     }
 
-    a:hover{
-        background: white;
-        color: #0882ed;
-        transform: scale(1.08);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    .contenedor:hover {
+      transform: scale(1.02);
     }
-</style>
 
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin: 15px 0;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin: 8px 0;
+    }
+
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 25px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background: linear-gradient(135deg, #ffffff, #e0e0ff);
+      color: #0882ed;
+      transform: scale(1.08);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .contenedor {
+        width: 90%;
+        padding: 20px;
+      }
+      h1 { font-size: 1.8em; }
+      h2.marquesina { font-size: 1.3em; }
+      p { font-size: 1em; }
+    }
+  </style>
+</head>
 <body>
 
-<header>
-  <h1>Universidad Tecnológica de la Costa</h1>
-  <hr>
-  <h2 class="marquesina">¡Bienvenido(a)!</h2>
-</header>
+  <header>
+    <h1>Universidad Tecnológica de la Costa</h1>
+    <hr>
+    <h2 class="marquesina">¡Bienvenido(a)!</h2>
+  </header>
 
-<div class="contenedor">
+  <main>
+    <div class="contenedor">
+      <section>
+        <h3>Dirección de Tecnologías de la Información</h3>
+        <p>Desarrollo de Software Multiplataforma</p>
+        <p><strong>Joatzi Analy Lopez Garcia</strong></p>
+        <p>Grupo: DSM51</p>
+        <p>5to Cuatrimestre</p>
+        <p>Periodo: Enero - Abril 2026</p>
+      </section>
 
-<h2>Dirección de Tecnologías de la Información</h2>
-<h2>Desarrollo de Software Multiplataforma</h2>
-<h2>Joatzi Analy Lopez Garcia</h2>
-<h2>DSM51</h2>
-<h2>5to Cuatrimestre</h2>
-<h2>Enero-Abril 2026</h2>
+      <hr>
 
-<hr>
-
-<h3><a href="indexU2.html">Unidad 2</a></h3>
-<h3><a href="index.jsp">Unidad 3</a></h3>
-<h3><a href="indexU4.jsp">Unidad 4</a></h3>
-
-</div>
+      <section>
+        <h3>Unidades</h3>
+        <nav>
+          <a href="indexU2.html">Unidad 2</a>
+          <a href="index.jsp">Unidad 3</a>
+          <a href="indexU4.jsp">Unidad 4</a>
+        </nav>
+      </section>
+    </div>
+  </main>
 
 </body>
+</html>
