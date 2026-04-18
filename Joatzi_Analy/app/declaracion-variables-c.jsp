@@ -8,19 +8,20 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Declaración de Variables en JSP C)</title>
 </head>
 <body>
-<%
-    pais = "México";
-    moneda = 10;
-    paridad = 17.8f;
-    total = moneda * paridad;
     <center>
+        <%
+            pais = "México";
+            moneda = 10;
+            paridad = 17.8f;
+            total = moneda * paridad;
+        %>
         <h1 style="color: blue;">Declaración de Variables C)</h1>
         <h2 style="color: brown;">
             En <%= pais %> el dólar tiene un precio de $<%= paridad %> 
