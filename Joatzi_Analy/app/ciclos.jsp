@@ -4,6 +4,8 @@
     <u>
         <h3 style="color: #950088;"></h3>
     </u>
+    <a href="index.jsp">regresar
+    </a>
 </center>
 <%!  
     int promedio = 100;
