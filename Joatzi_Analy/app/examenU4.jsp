@@ -49,7 +49,7 @@
     <p>Subir todos los ejercicios a un hosting funcional</p>
     <ul>
         <img src="captura.png" alt="Imagen del examen">
-        <li><a href="indexU4.jsp" target="_blank">Ir a los ejercicios</a></li>
+<a href="indexU4.jsp" target="_blank">Ir a los ejercicios</a>
     </ul>
 </center>
 </body>
