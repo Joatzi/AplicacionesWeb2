@@ -48,7 +48,7 @@
     <h1>Examen Unidad 4</h1>
     <p>Subir todos los ejercicios a un hosting funcional</p>
     <ul>
-        <img src="Captura de pantalla 2026-04-20 123159.png" alt="Imagen del examen">
+        <img src="captura.png" alt="Imagen del examen">
         <li><a href="indexU4.jsp" target="_blank">Ir a los ejercicios</a></li>
     </ul>
 </center>
