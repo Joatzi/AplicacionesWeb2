@@ -39,7 +39,7 @@
     <h1>Unidad 4. Implementacion</h1>
     <table>
         <tr>
-            <td><a href="examenU4.html">Examen Unidad 4</a></td>
+            <td><a href="examenU4.jsp">Examen Unidad 4</a></td>
         </tr>
     </table>
     <p style="margin-top: 15px;">
